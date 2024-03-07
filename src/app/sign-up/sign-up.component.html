@@ -1,0 +1,132 @@
+<h1>Formulaire d'inscription</h1>
+
+<form
+  [formGroup]="signUpForm"
+  (ngSubmit)="signUpForm.valid && onSubmit()"
+  #signUpStatus="ngForm"
+>
+  <fieldset class="name-container" formGroupName="name">
+    <h3>Identité</h3>
+    <label for="firstname">Votre prénom :</label>
+    <input
+      type="text"
+      id="firstname"
+      formControlName="firstname"
+      autocomplete="name"
+    />
+
+    <div *ngIf="signUpForm.get('name.firstname')?.errors">
+      <span *ngIf="signUpForm.get('name.firstname')?.errors?.['required']">
+        Le champ prénom est requis
+      </span>
+      <span *ngIf="signUpForm.get('name.firstname')?.errors?.['minlength']">
+        Le champ prénom doit avoir au moins 2 caractères
+      </span>
+    </div>
+
+    <label for="lastname">Votre nom :</label>
+    <input
+      type="text"
+      id="lastname"
+      formControlName="lastname"
+      autocomplete="family-name"
+    />
+    <div *ngIf="signUpForm.get('name.lastname')?.errors">
+      <span *ngIf="signUpForm.get('name.lastname')?.errors?.['required']">
+        Le champ prénom est requis
+      </span>
+      <span *ngIf="signUpForm.get('name.lastname')?.errors?.['minlength']">
+        Le champ prénom doit avoir au moins 2 caractères
+      </span>
+    </div>
+  </fieldset>
+
+  <fieldset class="email-container">
+    <h3>Sécurité</h3>
+    <label for="email">Votre e-mail :</label>
+    <input
+      type="email"
+      id="email"
+      formControlName="email"
+      autocomplete="email"
+    />
+
+    <div *ngIf="signUpForm.controls.email.errors">
+      <span *ngIf="signUpForm.controls.email.errors?.['required']"
+        >Le champ email doit être renseigné</span
+      >
+      <span *ngIf="signUpForm.controls.email.errors?.['email']"
+        >L'email saisi n'est pas au bon format</span
+      >
+    </div>
+  </fieldset>
+
+  <fieldset class="passwords-container" formGroupName="passwords">
+    <label for="password">Votre mot de passe :</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      autocomplete="current-password"
+    />
+
+    <label for="confirmPassword">Confirmer votre mot de passe :</label>
+    <input
+      type="password"
+      id="confirmPassword"
+      formControlName="confirmPassword"
+      autocomplete="current-password"
+    />
+
+    <div
+      *ngIf="signUpStatus.submitted && signUpForm.controls.passwords.invalid"
+    >
+      <span *ngIf="signUpForm.controls.passwords.errors?.['notEqual']"
+        >Les mots de passe ne correspondent pas</span
+      >
+    </div>
+  </fieldset>
+
+  <fieldset class="adress-container" formGroupName="adress">
+    <h3>Adresse</h3>
+    <label for="street">Nom de la rue :</label>
+    <input
+      type="text"
+      id="street"
+      formControlName="street"
+      autocomplete="street-address"
+    />
+
+    <div *ngIf="signUpForm.get('adress.street')?.errors">
+      <span *ngIf="signUpForm.get('adress.street')?.errors?.['required']">
+        Le champ nom de la rue est requis.
+      </span>
+    </div>
+
+    <label for="zipCode">Code postal :</label>
+    <input
+      type="text"
+      id="zipCode"
+      formControlName="zipCode"
+      autocomplete="postal-code"
+    />
+
+    <div *ngIf="signUpForm.get('adress.zipCode')?.errors">
+      <span *ngIf="signUpForm.get('adress.zipCode')?.errors?.['required']">
+        Le champ code postal est requis.
+      </span>
+    </div>
+
+    <label for="city">Nom de la ville :</label>
+    <input type="text" id="city" formControlName="city" autocomplete="city" />
+    <div *ngIf="signUpForm.get('adress.city')?.errors">
+      <span *ngIf="signUpForm.get('adress.city')?.errors?.['required']">
+        Le champ nom de la ville est requis.
+      </span>
+    </div>
+  </fieldset>
+
+  <div class="submit-form-btn">
+    <button type="submit">S'inscrire</button>
+  </div>
+</form>
